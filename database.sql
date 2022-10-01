@@ -1,13 +1,15 @@
 -- CREATE DATABASE "saga_movies_weekend"
 
+DROP TABLE "movies"; 
 
 CREATE TABLE "movies" (
   "id" SERIAL PRIMARY KEY,
   "title" VARCHAR(120) NOT NULL,
-  "poster"  VARCHAR(120) NOT NULL,
+  "poster"  VARCHAR(300) NOT NULL,
   "description" TEXT NOT NULL
 );
 
+DROP TABLE "genres";
 
 CREATE TABLE "genres" (
   "id" SERIAL PRIMARY KEY,
@@ -15,67 +17,139 @@ CREATE TABLE "genres" (
 );
 
 
--- JUNCTION TABLE
--- Movies can have multiple genres and each genre can be applied to multiple movies
--- This is many-to-many!
+DROP TABLE "movies_genres";
+
 CREATE TABLE "movies_genres" (
   "id" SERIAL PRIMARY KEY,
-  "movie_id" INT REFERENCES "movies" NOT NULL,
-  "genre_id" INT REFERENCES "genres" NOT NULL
+  "movie_id" INT REFERENCES "movies" ON DELETE CASCADE NOT NULL,
+  "genre_id" INT REFERENCES "genres" ON DELETE CASCADE NOT NULL
 );
 
 --------[ DATA! ]---------
 
--- starter movies
 INSERT INTO "movies" ("title", "poster", "description")
 VALUES 
-('Avatar', 'images/avatar.jpeg', 'Avatar (marketed as James Cameron''s Avatar) is a 2009 American epic science fiction film directed, written, produced, and co-edited by James Cameron, and stars Sam Worthington, Zoe Saldana, Stephen Lang, Michelle Rodriguez, and Sigourney Weaver. The film is set in the mid-22nd century, when humans are colonizing Pandora, a lush habitable moon of a gas giant in the Alpha Centauri star system, in order to mine the mineral unobtanium, a room-temperature superconductor. The expansion of the mining colony threatens the continued existence of a local tribe of Na''vi – a humanoid species indigenous to Pandora. The film''s title refers to a genetically engineered Na''vi body operated from the brain of a remotely located human that is used to interact with the natives of Pandora.'),
-('Beauty and the Beast', 'images/beauty-and-the-beast.jpg', 'Beauty and the Beast is a 2017 American musical romantic fantasy film directed by Bill Condon from a screenplay written by Stephen Chbosky and Evan Spiliotopoulos. Co-produced by Walt Disney Pictures and Mandeville Films, it was filmed in the UK with predominantly British principal actors. The film is a live-action remake of Disney''s 1991 animated film of the same name, itself an adaptation of Jeanne-Marie Leprince de Beaumont''s 18th-century fairy tale. The film features an ensemble cast that includes Emma Watson and Dan Stevens as the eponymous characters with Luke Evans, Kevin Kline, Josh Gad, Ewan McGregor, Stanley Tucci, Audra McDonald, Gugu Mbatha-Raw, Ian McKellen, and Emma Thompson in supporting roles.'),
-('Captain Marvel', 'images/captain-marvel.jpg', 'Captain Marvel is a 2019 American superhero film based on the Marvel Comics character Carol Danvers. Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is the twenty-first film in the Marvel Cinematic Universe (MCU). The film is written and directed by Anna Boden and Ryan Fleck, with Geneva Robertson-Dworet also contributing to the screenplay. Brie Larson stars as Danvers, alongside Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou, Lee Pace, Lashana Lynch, Gemma Chan, Annette Bening, Clark Gregg, and Jude Law. Set in 1995, the story follows Danvers as she becomes Captain Marvel after Earth is caught in the center of a galactic conflict between two alien civilizations.'),
-('Finding Nemo', 'images/finding-nemo.jpg', 'Finding Nemo is a 2003 American computer-animated adventure film produced by Pixar Animation Studios and released by Walt Disney Pictures. Written and directed by Andrew Stanton with co-direction by Lee Unkrich, the film stars the voices of Albert Brooks, Ellen DeGeneres, Alexander Gould, and Willem Dafoe. It tells the story of the overprotective ocellaris clownfish named Marlin who, along with a regal blue tang named Dory, searches for his abducted son Nemo all the way to Sydney Harbour. Along the way, Marlin learns to take risks and comes to terms with Nemo taking care of himself.'),
-('Gone Girl', 'images/gone-girl.jpg', 'Gone Girl is a 2014 American psychological thriller film directed by David Fincher and written by Gillian Flynn, based on her popular 2012 novel of the same title. The film stars Ben Affleck, Rosamund Pike, Neil Patrick Harris, and Tyler Perry. Set in Missouri, the story begins as a mystery that follows the events surrounding Nick Dunne (Affleck), who becomes the primary suspect in the sudden disappearance of his wife Amy (Pike).'),
-('The Double Life of Véronique', 'images/double-life.jpg', 'Véronique (Irène Jacob) is a beautiful young French woman who aspires to be a renowned singer; Weronika (also Jacob) lives in Poland, has a similar career goal and looks identical to Véronique, though the two are not related. The film follows both women as they contend with the ups and downs of their individual lives, with Véronique embarking on an unusual romance with Alexandre Fabbri (Philippe Volter), a puppeteer who may be able to help her with her existential issues.'),
-('James Bond: Goldfinger', 'images/james-bond.jpg', 'Goldfinger is a 1964 British spy film and the third installment in the James Bond series produced by Eon Productions, starring Sean Connery as the fictional MI6 agent James Bond. It is based on the novel of the same name by Ian Fleming. The film also stars Honor Blackman as Bond girl Pussy Galore and Gert Fröbe as the title character Auric Goldfinger, along with Shirley Eaton as the iconic Bond girl Jill Masterson. Goldfinger was produced by Albert R. Broccoli and Harry Saltzman and was the first of four Bond films directed by Guy Hamilton.'),
-('Life of Pi', 'images/life-of-pi.jpeg', 'Life of Pi is a 2012 survival drama film based on Yann Martel''s 2001 novel of the same name. Directed by Ang Lee, the film''s adapted screenplay was written by David Magee, and it stars Suraj Sharma, Irrfan Khan, Rafe Spall, Tabu Hashmi, Adil Hussain, and Gérard Depardieu. The storyline revolves around an Indian man named "Pi" Patel, telling a novelist about his life story, and how at 16 he survives a shipwreck and is adrift in the Pacific Ocean on a lifeboat with a Bengal tiger. The film had its worldwide premiere as the opening film of the 51st New York Film Festival at both the Walter Reade Theater and Alice Tully Hall in New York City on September 28, 2012.'),
-('Monsters, Inc.', 'images/monsters-inc.jpg', 'Monsters, Inc. is a 2001 American computer-animated comedy film produced by Pixar Animation Studios and distributed by Walt Disney Pictures. Featuring the voices of John Goodman, Billy Crystal, Steve Buscemi, James Coburn, and Jennifer Tilly, the film was directed by Pete Docter in his directorial debut, and executive produced by John Lasseter and Andrew Stanton. The film centers on two monsters – James P. "Sulley" Sullivan and his one-eyed partner and best friend Mike Wazowski – employed at the titular energy-producing factory Monsters, Inc, which generates power by scaring human children. The monster world believes that children are toxic, and when a small child enters the factory, Sulley and Mike must return her home before it is too late.'),
-('Star Wars: The Last Jedi', 'images/star-wars.jpg', 'Star Wars: The Last Jedi (also known as Star Wars: Episode VIII – The Last Jedi) is a 2017 American epic space-opera film written and directed by Rian Johnson. It is the second installment of the Star Wars sequel trilogy, following The Force Awakens (2015), and the eighth episode of the main Star Wars film franchise. It was produced by Lucasfilm and distributed by Walt Disney Studios Motion Pictures. The film''s ensemble cast includes Mark Hamill, Carrie Fisher, Adam Driver, Daisy Ridley, John Boyega, Oscar Isaac, Andy Serkis, Lupita Nyong''o, Domhnall Gleeson, Anthony Daniels, Gwendoline Christie, and Frank Oz in returning roles, with Kelly Marie Tran, Laura Dern and Benicio del Toro joining the cast. It features the first posthumous film performance by Fisher, who died in December 2016, and the film is dedicated to her memory. The plot follows Rey as she receives Jedi training from Luke Skywalker, in hopes of turning the tide for the Resistance in the fight against Kylo Ren and the First Order, while General Leia Organa, Finn, and Poe Dameron attempt to escape a First Order attack on the dwindling Resistance fleet.'),
-('The Martian', 'images/the-martian.jpg', 'The Martian is a 2015 science fiction film directed by Ridley Scott and starring Matt Damon adapted from the novel of the same name by Andy Weir. The film depicts an astronaut''s lone struggle to survive on Mars after being left behind, and efforts to rescue him, and bring him home to Earth. It also stars Jessica Chastain, Kristen Wiig, Jeff Daniels, Michael Peña, Kate Mara, Sean Bean, Sebastian Stan, Donald Glover, Aksel Hennie, and Chiwetel Ejiofor.'),
-('The Social Network', 'images/the-social-network.jpg', 'The Social Network is a 2010 American biographical drama film directed by David Fincher and written by Aaron Sorkin. Adapted from Ben Mezrich''s 2009 book The Accidental Billionaires: The Founding of Facebook, a Tale of Sex, Money, Genius and Betrayal, the film portrays the founding of social networking website Facebook and the resulting lawsuits. It stars Jesse Eisenberg as founder Mark Zuckerberg, along with Andrew Garfield as Eduardo Saverin, Justin Timberlake as Sean Parker, Armie Hammer as Cameron and Tyler Winklevoss, and Max Minghella as Divya Narendra. Neither Zuckerberg nor any other Facebook staff were involved with the project, although Saverin was a consultant for Mezrich''s book. The film was released in the United States by Columbia Pictures on October 1, 2010.'),
-('Titanic', 'images/titanic.jpg', 'Titanic is a 1997 American epic romance and disaster film directed, written, co-produced, and co-edited by James Cameron. A fictionalized account of the sinking of the RMS Titanic, it stars Leonardo DiCaprio and Kate Winslet as members of different social classes who fall in love aboard the ship during its ill-fated maiden voyage.'),
-('Toy Story', 'images/toy-story.jpg', 'Toy Story is a 1995 American computer-animated adventure comedy film produced by Pixar Animation Studios and released by Walt Disney Pictures. The feature-film directorial debut of John Lasseter, it was the first feature-length film to be entirely computer-animated, as well as the first feature film from Pixar. The screenplay was written by Joss Whedon, Andrew Stanton, Joel Cohen, and Alec Sokolow from a story by Lasseter, Stanton, Pete Docter, and Joe Ranft. The film features music by Randy Newman, and was executive-produced by Steve Jobs and Edwin Catmull. The film features the voices of Tom Hanks, Tim Allen, Don Rickles, Wallace Shawn, John Ratzenberger, Jim Varney, Annie Potts, R. Lee Ermey, John Morris, Laurie Metcalf, and Erik von Detten. Taking place in a world where anthropomorphic toys come to life when humans are not present, its plot focuses on the relationship between an old-fashioned pull-string cowboy doll named Woody and an astronaut action figure, Buzz Lightyear, as they evolve from rivals competing for the affections of their owner Andy Davis to friends who work together to be reunited with him after being separated.');
 
--- starter genres
+('Paris, Texas', 
+'https://cdn.posteritati.com/posters/000/000/056/842/paris-texas-md-web.jpg', 
+'A disheveled man who wanders out of the desert, Travis Henderson (Harry Dean Stanton) seems to have no idea who he is. When a stranger manages to contact his brother, Walt (Dean Stockwell), Travis is awkwardly reunited with his sibling. Travis has been missing for years, and his presence unsettles Walt and his family, which also includes Travis''s own son, Hunter (Hunter Carson). Soon Travis must confront his wife, Jane (Nastassja Kinski), and try to put his life back together.'),
+
+('Blade Runner', 
+'https://xl.movieposterdb.com/21_01/1982/83658/xl_83658_327434b6.jpg', 
+'Blade Runner is a 1982 science fiction film directed by Ridley Scott, and written by Hampton Fancher and David Peoples.[7][8] Starring Harrison Ford, Rutger Hauer, Sean Young, and Edward James Olmos, it is an adaptation of Philip K. Dick''s 1968 novel Do Androids Dream of Electric Sheep? The film is set in a dystopian future Los Angeles of 2019, in which synthetic humans known as replicants are bio-engineered by the powerful Tyrell Corporation to work on space colonies. When a fugitive group of advanced replicants led by Roy Batty (Hauer) escapes back to Earth, burnt-out cop Rick Deckard (Ford) reluctantly agrees to hunt them down.'),
+
+('The Passion of Anna', 
+'https://m.media-amazon.com/images/M/MV5BNmY2NDkyYTQtNGI1NC00MjAxLTlmYmMtMWMxYTlkOGI5OTdiXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_FMjpg_UX1000_.jpg', 
+'Unsettled by his recent divorce, Andreas Winkelman (Max von Sydow) lives on a remote Swedish island. When he meets the unhappy married couple Elis and Eva Vergerus (Erland Josephson, Bibi Andersson), Andreas begins a brief affair with Eva, which leads to a romantic involvement with their friend Anna Fromm (Liv Ullmann), who is grieving the loss of her family. As these relationships unfold, someone on the island is killing animals, lending the drama a mysterious backdrop.'),
+
+('Working Girl', 
+'https://i.ebayimg.com/images/g/QUwAAOSwv0tVSmv4/s-l500.jpg', 
+'Savvy New York City receptionist Tess McGill (Melanie Griffith) gives her conniving boss, Katharine Parker (Sigourney Weaver), an excellent business tip, but Katharine simply steals the idea without giving due credit to her secretary. After Katharine winds up in the hospital with an injured leg, Tess decides to exact revenge. Pretending to be her boss, Tess initiates a major deal with an investment broker (Harrison Ford) -- but things turn ugly after Katharine finds out what Tess has been up to.'),
+
+('Solaris', 
+'https://assets.fontsinuse.com/static/use-media-items/160/159962/full-2186x3000/6242b26b/solaris-vintage-movie-poster-original-polish-a1-23x33-5685.jpeg', 
+'Based on the classic science fiction novel by Stanislaw Lem, "Solaris" centers on a psychologist (George Clooney) sent to investigate unexplained behavior of key scientists on a space station orbiting the planet Solaris. Once aboard he, too, falls victim to this unique world''s mysteries -- as well as to an erotic obsession with someone he thought he had left behind.'),
+
+('Housu', 
+'https://ih1.redbubble.net/image.851843345.6895/flat,750x,075,f-pad,750x1000,f8f8f8.jpg',
+'In an effort to avoid spending time with her father and his creepy new lover, young Gorgeous (Kimiko Ikegami) resolves to visit her aunt''s remote mansion. With six of her closest friends in tow, including the musically inclined Melody (Eriko Tanaka) and the geeky Prof (Ai Matsubara), Gorgeous arrives at the estate, where supernatural events occur almost immediately. A severed head takes flight, household appliances come to life and a portrait of a cat seems to contain an evil spirit.'),
+
+('The Omega Man', 
+'https://www.reelviews.net/resources/img/posters/thumbs/omega_man_poster.jpg', 
+'Due to an experimental vaccine, Doctor Robert Neville is the only survivor of an apocalyptic war, with the exception of a few hundred deformed, nocturnal people who are also homicidal maniacs. They blame science and technology for their condition and they see Neville, as the last symbol of science, therefore he must die. Neville, uses everything at his disposal in an attempt to survive.'),
+
+('L''Argent', 
+'https://m.media-amazon.com/images/I/51uSeRTudXL._AC_.jpg', 
+'While collecting payment from a Paris photography shop, hard-working fuel delivery man Yvon Targe (Christian Patey) is purposefully given counterfeit money without his knowledge. When Yvon innocently uses the bills to pay for his lunch later that day at a local café, he narrowly avoids arrest but loses his job. To support his family, Yvon takes a new job with a criminal element, but his life continues nevertheless to spiral downward into the depths of violence and despair.'),
+
+('Miracle Mile', 
+'https://m.media-amazon.com/images/I/512a1pcrtKL._AC_.jpg', 
+'Musician Harry Washello (Anthony Edwards) sits down at a Los Angeles diner, where he instantly takes an interest in waitress Julie Peters (Mare Winningham). The feeling is mutual, too, so the pair arranges a date for later that day. But things go awry when Harry picks up a random pay phone call from a frantic soldier who warns of a nuclear attack that will hit L.A. within the hour. Scrambling, Harry finds Julie and the two do everything they can to escape to safety.'),
+
+('The Hidden Fortress', 
+'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/The_Hidden_Fortress.jpg/1200px-The_Hidden_Fortress.jpg', 
+'Japanese peasants Matashichi (Kamatari Fujiwara) and Tahei (Minoru Chiaki) try and fail to make a profit from a tribal war. They find a man and woman whom they believe are simple tribe members hiding in a fortress. Although the peasants don''t know that Rokurota (Toshirô Mifune) is a general and Yuki (Misa Uehara) is a princess, the peasants agree to accompany the pair to safety in return for gold. Along the way, the general must prove his expertise in battle while also hiding his identity.'),
+
+('The Graduate', 
+'https://s3.amazonaws.com/criterion-production/films/c1cb7c7c93760075005158d586b67d45/ace3Y8tk9zZ6RU58hIflxVsxZUIA2B_large.jpg', 
+'Benjamin Braddock (Dustin Hoffman) has just finished college and, back at his parents'' house, he''s trying to avoid the one question everyone keeps asking: What does he want to do with his life? An unexpected diversion crops up when he is seduced by Mrs. Robinson (Anne Bancroft), a bored housewife and friend of his parents. But what begins as a fun tryst turns complicated when Benjamin falls for the one woman Mrs. Robinson demanded he stay away from, her daughter, Elaine (Katharine Ross).'),
+
+('Scanners', 
+'https://s3.amazonaws.com/criterion-production/films/72be64c7e0fe2adc28ae31719d0c4d88/6tMtPzuwVeGlo4qEXwaxq1vZa2eZca_large.jpg', 
+'Scanners are men and women born with incredible telepathic and telekinetic powers. There are many who exercise the benefits of their special gifts in a safe and judicious manner. However, there is a group of renegade scanners who plan to create a race that will rule the world.'),
+
+('Dawn of The Dead ', 
+'https://m.media-amazon.com/images/M/MV5BMzc1YTIyNjctYzhlNy00ZmYzLWI2ZWQtMzk4MmQwYzA0NGQ1XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg', 
+'When her husband is attacked by a zombified neighbor, Ana (Sarah Polley) manages to escape, only to realize her entire Milwaukee neighborhood has been overrun by the walking dead. After being questioned by cautious policeman Kenneth (Ving Rhames), Ana joins him and a small group that gravitates to the local shopping mall as a bastion of safety. Once they convince suspicious security guards that they are not contaminated, the group bands together to fight the undead hordes.'),
+
+
+('The Wicker Man', 
+'https://m.media-amazon.com/images/M/MV5BOWIzY2QyNDQtOWI3Ni00MjEwLTlhYTgtZTgyMThiY2JkMTY4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg', 
+'Sergeant Howie (Edward Woodward) arrives on the small Scottish island of Summerisle to investigate the report of a missing child. A conservative Christian, the policeman observes the residents'' frivolous sexual displays and strange pagan rituals, particularly the temptations of Willow (Britt Ekland), daughter of the island magistrate, Lord Summerisle (Christopher Lee). The more Sergeant Howie learns about the islanders'' strange practices, the closer he gets to tracking down the missing child.'),
+
+('The Thing', 
+'https://i5.walmartimages.com/asr/0b79646b-39a7-4a7e-a23a-81df1aa065d7_1.c9e948f6ce1860bed2ea2588c7b03d92.jpeg', 
+'In remote Antarctica, a group of American research scientists are disturbed at their base camp by a helicopter shooting at a sled dog. When they take in the dog, it brutally attacks both human beings and canines in the camp and they discover that the beast can assume the shape of its victims. A resourceful helicopter pilot (Kurt Russell) and the camp doctor (Richard Dysart) lead the camp crew in a desperate, gory battle against the vicious creature before it picks them all off, one by one.'),
+
+('Invasion of the Body Snatchers', 
+'https://cdn.shopify.com/s/files/1/1416/8662/products/invasion_of_the_body_snatchers_1978_advance_original_film-art_a.jpg?v=1638988169', 
+'In Santa Mira, California, Dr. Miles Bennell (Kevin McCarthy) is baffled when all his patients come to him with the same complaint: their loved ones seem to have been replaced by emotionless impostors. Despite others'' dismissive denials, Dr. Bennell, his former girlfriend Becky (Dana Wynter) and his friend Jack (King Donovan) soon discover that the patients'' suspicions are true: an alien species of human duplicates, grown from plant-like pods, is taking over the small town.'),
+
+('The Sentinel', 
+'https://m.media-amazon.com/images/M/MV5BYmRhMjJhOWQtNTE0ZS00YTc5LWE5YzUtZTkwZDEyNTE4MTY3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg', 
+'A New York City model with a troubled past, Alison Parker (Cristina Raines) decides to make some changes in her life. Breaking up with her boyfriend, Michael (Chris Sarandon), Alison relocates to an apartment in a brownstone building where the only other tenant is a withdrawn blind priest (John Carradine). After experiencing strange occurrences, Alison begins to realize why the holy man is present -- the building has an evil presence that must be kept in check at all costs.'),
+
+('The Abominable Dr. Phibes', 
+'https://assets.fontsinuse.com/static/use-media-items/56/55102/full-1935x2936/5979b812/the-abominable-dr-phibes-01.jpeg', 
+'In a desperate attempt to reach his ill wife, organist Anton Phibes (Vincent Price) is horrifically disfigured in a car accident and presumed dead. When he learns that his wife died during an operation, Phibes blames her surgeons and plots an elaborate revenge to punish them for their incompetence. With the help of a mute assistant (Virginia North), Phibes creates a mask resembling his own face and murders the surgeons one by one using bizarre methods inspired by the biblical plagues.');
+
+
 INSERT INTO "genres" ("name")
 VALUES 
-('Adventure'),
-('Animated'),
-('Biographical'),
-('Comedy'),
-('Disaster'),
-('Drama'),
-('Epic'),
-('Fantasy'),
-('Musical'),
-('Romantic'),         --10
-('Science Fiction'),  --11
-('Space-Opera'),      --12
-('Superhero');        --13
+	('Action'),
+	('Animated'),
+	('Apocolypse'),
+	('Arthouse'),
+	('Crime'),
+	('Classic'),
+	('Comedy'),
+	('Cult'),
+	('Disaster'),
+	('Drama'),
+	('Epic'),
+	('Fantasy'),
+	('Foreign'),
+	('Historical'),
+	('Horror'),
+	('Indie'),
+	('Mystery'),
+	('Noir'),
+	('Romantic'),      
+	('Science Fiction'),
+	('Silent'),
+	('Thriller'),
+	('Western');
+	
 
-
--- starter movies and genres data
 INSERT INTO "movies_genres" ("movie_id", "genre_id")
 VALUES 
-(1,1), (1,3), (1,4),      -- Avatar
-(2,1), (2,11), (2,12),    -- Beauty
-(3,3),                    -- Cpt Marvel
-(4,4), (4,7),             -- Nemo
-(5,3),                    -- Gone Girl
-(6,12),                   -- Véronique
-(7,9),(7,2),              -- Bond
-(8,4),                    -- Pi
-(9,4),                    -- Monsters
-(10,4),                   -- Star Wars
-(11,6), (11,11),          -- Martian
-(12,8), (12,9),           -- Social Net
-(13,4), (13,10), (13,6),  -- Titanic
-(14,3), (14,2), (14,4);   -- Toy Story
+(1,4), (1,11), (1,19),				--Paris, Texas
+(2,1), (2,18), (2,20),				--Blade Runner
+(3,6), (3,22), (3,13),				--The Passion of Anna
+(4,7), (4,10), (4,19),				--Working Girl
+(5,8), (5,20), (5,22),				--Solaris
+(6,8), (6,13), (6,15),				--Housu
+(7,3), (7,8), (7,20),				--The Omega Man
+(8,5), (8,13), (8,22),				--L''Argent
+(9,1), (9,9), (9,19),				--Miracle Mile
+(10,1), (10,11), (10,13),			--The Hidden Fortress
+(11,7), (11,10), (11,19),			--The Graduate
+(12,8), (11,15), (11,20),			--Scanners
+(13,1), (13,15), 					--Dawn of The Dead 
+(14,8), (14,17), (14,22),			--The Wicker Man
+(15,15), (15,20), (15,22),			--The Thing
+(16,3), (16,8), (16,15), (16,20),	--Invasion of the Body Snatchers
+(17,15), (17,17), (17,22),			--The Sentinel
+(18,8), (18,15), (18,17);			--The Abominable Dr. Phibes;
+
+
