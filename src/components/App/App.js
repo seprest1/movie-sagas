@@ -4,17 +4,19 @@ import MovieList from '../MovieList/MovieList'
 
 function App() {
   return (
-    <div className="App">
-      <h1>The Movies Saga!</h1>
+    <div className="app">
+      <div className ="wrapper">
+      <header className="sign">
+        <h1 >Now Showing:</h1>
+      </header>
       <Router>        
         <Route path="/" exact>
-          <MovieList />
+          <MovieList className="movies"/>
         </Route>
-        
         {/* Details page */}
-
         {/* Add Movie page */}
       </Router>
+      </div>
     </div>
   );
 }

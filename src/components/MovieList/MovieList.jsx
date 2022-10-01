@@ -13,13 +13,12 @@ function MovieList() {
 
     return (
         <main>
-            <h1>MovieList</h1>
             <section className="movies">
                 {movies.map(movie => {
                     return (
-                        <div key={movie.id} >
-                            <h3>{movie.title}</h3>
-                            <img src={movie.poster} alt={movie.title}/>
+                        <div key={movie.id} className="movieCard">
+                            <h3 className="movieTitle">{movie.title}</h3>
+                            <img src={movie.poster} alt={movie.title} className="moviePoster"/>
                         </div>
                     );
                 })}
