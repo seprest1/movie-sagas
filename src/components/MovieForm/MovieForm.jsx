@@ -4,17 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import './MovieForm.css'
 
 //MUI
-import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import { createMuiTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import Button from "@mui/material/button";
+import ButtonGroup from '@mui/material/ButtonGroup';
 
-const theme = createMuiTheme({
-  palette: {
-    type: "dark"
-  }
-});
 
 import Select from 'react-select'
 
@@ -56,62 +49,75 @@ function MovieForm(){
     
 
     return(
-        <ThemeProvider theme={theme}>
-            bg <section className="formSection">
-                <div classname="formWrapper">
+            <section className="formSection">
                     <h2 className="formh1">ADD FILM:</h2>
-                    <div className="inputs">
-                        <div className="title">
-                        <TextField
-                            variant="filled" 
-                            color="secondary"
-                            type="text"
-                            value={movie.title}
-                            onChange={(e) => setMovie({...movie, title: e.target.value})}
-                            placeholder="Title"
-                            />
-                        </div>
-                        <div className="url">
+                    <div className="inputWrapper">
+                        <div className="inputs">
+                            <div className="title">
                             <TextField
-                                variant="filled" 
-                                color="secondary"
+                                variant="outlined" 
+                                color="error"
                                 type="text"
-                                value={movie.poster}
-                                onChange={(e) => setMovie({...movie, poster: e.target.value})}
-                                placeholder="movie_poster_image_.jpg"
+                                value={movie.title}
+                                onChange={(e) => setMovie({...movie, title: e.target.value})}
+                                label="Title"
+                                style = {{width: 500}}
+                                />
+                            </div>
+                            <div className="url">
+                                <TextField
+                                    variant="outlined" 
+                                    color="error"
+                                    type="text"
+                                    value={movie.poster}
+                                    onChange={(e) => setMovie({...movie, poster: e.target.value})}
+                                    label="Poster"
+                                    style = {{width: 500}}
+                                    />
+                            </div>
+                            <div className="description">
+                                <TextField
+                                    variant="outlined" 
+                                    color="error"
+                                    multiline
+                                    rows={4}
+                                    type="text"
+                                    value={movie.description}
+                                    onChange={(e) => setMovie({...movie, description: e.target.value})}
+                                    label="Description"
+                                    style = {{width: 500}}
+                                    />
+                            </div>
+                        </div>
+                        <div className="genreSelects">
+                            <Select 
+                                isMulti
+                                options={options}
+                                closeMenuOnSelect={false}
+                                isSearchable={true}
+                                backspaceRemovesValue={true}
+                                isOptionDisabled={() => genresToAdd.length >= 3} //limits select to 3 genres
+                                onChange={(value) => setGenresToAdd(value.map(item => item.value))} 
+                                placeholder="Genre"     //update genre array with selected genre
+                                className="select"
+                                theme={(theme) => ({
+                                    ...theme,
+                                    borderRadius: 5,
+                                    colors: {
+                                    ...theme.colors,
+                                      text: 'orangered',
+                                      primary25: '#d32f2f',
+                                      primary: 'black',
+                                    },
+                                  })}
                                 />
                         </div>
-                        <div className="description">
-                            <TextField
-                                variant="filled" 
-                                color="secondary"
-                                type="text"
-                                value={movie.description}
-                                onChange={(e) => setMovie({...movie, description: e.target.value})}
-                                placeholder="Description"
-                                />
-                        </div>
+                        <ButtonGroup variant="contained" color="error" className="buttons">
+                            <Button onClick={goBackHome}>Cancel</Button>
+                            <Button onClick={submitMovie}>Submit</Button>
+                        </ButtonGroup>
                     </div>
-                    <div className="genreSelects">
-                        <Select 
-                            isMulti
-                            options={options}
-                            closeMenuOnSelect={false}
-                            isSearchable={true}
-                            backspaceRemovesValue={true}
-                            isOptionDisabled={() => genresToAdd.length >= 3} //limits select to 3 genres
-                            onChange={(value) => setGenresToAdd(value.map(item => item.value))} 
-                            placeholder="Genre"     //update genre array with selected genre
-                            className="select"
-                            />
-                    </div>
-                    <div className="buttons">
-                        <IconButton onClick={goBackHome} variant="outlined">Cancel</IconButton>
-                        <IconButton onClick={submitMovie} variant="outlined">Save</IconButton>
-                    </div>
-                </div>
             </section>
-        </ThemeProvider>
     )
 }
 
