@@ -92,17 +92,6 @@ const movieDetails = (state = {}, action) => {
     }
 }
 
-const genreInputs = (state = ['firstInput'], action) => {
-    switch(action.type) {
-        case 'SET_GENRE_INPUTS':
-            if (state.length < 3){ //only allow for three genres
-                return [...state, 'newInput']
-            };
-        default: 
-            return state;
-    }
-}
-
 const sagaMiddleware = createSagaMiddleware();
 
 //////////// store ////////////
@@ -110,8 +99,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
-        movieDetails,
-        genreInputs
+        movieDetails
     }),
     applyMiddleware(sagaMiddleware, logger),
 );

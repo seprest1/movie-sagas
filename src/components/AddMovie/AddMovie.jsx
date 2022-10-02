@@ -1,48 +1,50 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import Select from './Select'
+
+import Select from 'react-select'
 
 function AddMovie(){
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [movie, setMovie] = useState({movieInput});
-
-    const genres = useSelector(store => store.genres);
-    const genreInputs = useSelector(store => store.genreInputs)
+    useEffect(() => {
+        dispatch({ type: 'FETCH_GENRES' });
+    }, []);
 
     const goBackHome = () => {
         history.push('/');
     };
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_GENRES' });
-    }, []);
-
-    console.log(genres);
-
-    //movie object
-    const movieInput = {
-        title: "",
-        poster: "",
-        description: "",
-        genres: []
-      };
-
-    const submitMovie = () => {
+    const [movie, setMovie] = useState({
+            title: "",      //movie object
+            poster: "",
+            description: "",
+            genres: []});   
+                
+    const submitMovie = (e) => {
         e.preventDefault();
         // dispatch({
         //     type: 
         //     payload: 
         // });
     };
+    
+    
+    
+    const allGenres = useSelector(store => store.genres);
+    const options = allGenres.map(genre => ({value: genre.name, label: genre.name }));
+    const [genresToAdd, setGenresToAdd] = useState([]);
 
-    //allows user to add more genres selects
-    const addSelect = () => {
-        dispatch({type: 'SET_GENRE_INPUTS'})
-        console.log(genreInputs);
-    };
+    //sets genres array for movie object    
+    const onChangeValue = (value) => {
+        setGenresToAdd(value.map(item => item.value));
+        setMovie({...movie, genres: genresToAdd});
+        console.log(genresToAdd);
+        console.log(genresToAdd.length);
+    }
+
+    console.log(movie);
 
     return(
         <form onSubmit={submitMovie}>
@@ -51,7 +53,7 @@ function AddMovie(){
             <input 
                 type="text"
                 value={movie.title}
-                onChange={(e) => setMovie(e.target.value)}
+                onChange={(e) => setMovie({...movie, title: e.target.value})}
                 placeholder="Title"
                 />
             </div>
@@ -59,7 +61,7 @@ function AddMovie(){
                 <input 
                     type="text"
                     value={movie.poster}
-                    onChange={(e) => setMovie(e.target.value)}
+                    onChange={(e) => setMovie({...movie, poster: e.target.value})}
                     placeholder="movie_poster_image_.jpg"
                     />
             </div>
@@ -67,20 +69,21 @@ function AddMovie(){
                 <input 
                     type="text"
                     value={movie.description}
-                    onChange={(e) => setMovie(e.target.value)}
+                    onChange={(e) => setMovie({...movie, description: e.target.value})}
                     placeholder="Description"
                     />
             </div>
             <div className="genreSelects">
-
-                {genreInputs.map((input, i) => 
-                    <select key={i}>                        {/* maps through genres and 
-                                                        makes an option value for each */}
-                        {genres.map(genre => <option value={genre.name}>{genre.name}</option>)}
-                                                            {/* don't judge me... lol*/}
-                    </select>)}
-                <button onClick={addSelect}>+</button>
-
+                <Select 
+                    isMulti
+                    options={options}
+                    closeMenuOnSelect={false}
+                    isSearchable={true}
+                    backspaceRemovesValue={true}
+                    isOptionDisabled={() => genresToAdd.length >= 3} //limits select to 3 genres
+                    onChange={onChangeValue} //update genre array with selected genre
+                    placeholder="Genre"     
+                    />
             </div>
             <div className="buttons">
                 <button onClick={goBackHome}>Cancel</button>
