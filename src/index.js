@@ -14,11 +14,11 @@ import axios from 'axios';
 //////////// saga functions ////////////
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
-    yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails)
+    yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails);
+    yield takeEvery('FETCH_GENRES', fetchGenres);
 };
 
 function* fetchAllMovies() {
-    // get all movies from the DB
     try {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
@@ -42,6 +42,25 @@ function* fetchMovieDetails(action) {
         payload: movieDetails.data
     });
 };
+
+function* fetchGenres() {
+    try {
+        const genres = yield axios.get('/api/genre');
+
+        console.log('Genres:', genres.data);
+
+        yield put({ 
+            type: 'SET_GENRES', 
+            payload: genres.data 
+        });
+    } 
+    catch (error) {
+        console.log('GET genres failed', error);
+    };
+};
+
+
+
 
 //////////// reducers ////////////
 const movies = (state = [], action) => {
