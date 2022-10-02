@@ -1,6 +1,6 @@
 import { useParams, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import './Details.css'
 
 
@@ -12,7 +12,7 @@ function Details(){
 
     useEffect(() => {
         getDetails();
-        // return removeFlicker();     //remove flickering upon load
+        return removeFlicker();     //remove flickering upon load
     }, [params.id]);    //runs function again when ID changes
 
     const getDetails = () => {
@@ -20,14 +20,14 @@ function Details(){
         dispatch({
             type: 'FETCH_MOVIE_DETAILS',
             payload: movieId
-        })
-    }
+        });
+    };
 
-    // const removeFlicker = () => {
-    //     dispatch({
-    //         type: 'CLEAR_MOVIE_DETAILS'
-    //     })
-    // }
+    const removeFlicker = () => {
+        dispatch({
+            type: 'CLEAR_MOVIE_DETAILS'
+        });
+    };
 
     const goBack = () => {
         history.push('/');
