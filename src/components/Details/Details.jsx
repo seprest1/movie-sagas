@@ -1,6 +1,7 @@
 import { useParams, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import './Details.css'
 
 
 function Details(){
@@ -10,29 +11,34 @@ function Details(){
     const movie = useSelector(store => store.movieDetails)
 
     useEffect(() => {
-        const movieId = params.id;
+        getDetails();
+        // return removeFlicker();     //remove flickering upon load
+    }, [params.id]);    //runs function again when ID changes
+
+    const getDetails = () => {
+        const movieId = Number(params.id);
         dispatch({
             type: 'FETCH_MOVIE_DETAILS',
             payload: movieId
         })
-        return () => {  //remove flickering upon load
-        dispatch({
-            type: 'CLEAR_MOVIE_DETAILS'
-        })
-        }   //runs function again when ID changes
-    }, [params.id]);
+    }
+
+    // const removeFlicker = () => {
+    //     dispatch({
+    //         type: 'CLEAR_MOVIE_DETAILS'
+    //     })
+    // }
 
     const goBack = () => {
         history.push('/');
     };
 
     return (
-        <div>
+        <div className="movieDetails">
             <img src={movie.poster} alt={movie.title} className="movieDetailedPoster"/>
-            <h2>MovieTitle: {movie.title}</h2>
-            <h3>Description:</h3>
+            <h2>{movie.title}</h2>
             <p>{movie.description}</p>
-            <p>Genres: {movie.genre}</p>
+            {movie.genre && <p> Genres: {movie.genre.join(', ')}</p>}
             <button onClick={goBack}>Back</button>
         </div>
     )

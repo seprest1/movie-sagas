@@ -31,13 +31,15 @@ function* fetchAllMovies() {
 
 function* fetchMovieDetails(action) {
     const movieId = action.payload
+    console.log(movieId);
     const movieDetails = yield axios({
-      method: 'GET',
-      url: `/api/movie/${movieId}`
+        method: 'GET',
+        url: `/api/movie/${movieId}`
     })
+    console.log(movieDetails.data);
     yield put({
-      type: 'SET_MOVIE_DETAILS',
-      payload: movieDetails.data
+        type: 'SET_MOVIE_DETAILS',
+        payload: movieDetails.data
     });
 };
 
@@ -60,13 +62,12 @@ const genres = (state = [], action) => {
     }
 }
 
-const movieDetails = (state = [], action) => {
-    console.log(action.payload);
+const movieDetails = (state = {}, action) => {
     switch(action.type) {
         case 'SET_MOVIE_DETAILS':
             return action.payload;
         case 'CLEAR_MOVIE_DETAILS':
-            return [];
+            return {};
         default:
             return state;
     }
