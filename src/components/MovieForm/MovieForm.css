@@ -1,0 +1,65 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap');
+
+.formSection{
+    width: 50%;
+    background-color: rgba(163, 246, 247, 0.5);
+    color: whitesmoke !important;
+    border: 1px solid rgb(83, 82, 82, 0.5);
+    box-shadow: 10px 10px 10px black;
+    border-radius: 1.5em;
+    justify-self: center;
+}
+
+.inputWrapper {
+    display: flexbox;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formh1{
+    font-family: 'PT Sans Narrow', sans-serif;
+    background-color: rgba(11, 48, 56, 0.9);
+    color: rgba(221, 217, 217, 0.9);
+    font-weight: 300;
+    font-size: 1.5em;
+    letter-spacing: 0.2em;
+    margin: 0;
+    padding: 1em;
+    border-bottom: 1px solid rgb(83, 82, 82, 0.5);
+    box-shadow: 0px 10px 20px rgb(17, 17, 17, 0.3);
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+.buttons{
+    margin: 5%;
+    padding: 2%;
+    gap: 2%;
+}
+
+.select{
+    width: 60%;
+    padding: 0.5em;
+    margin-left: 20%;
+}
+
+.title {
+    padding: 0.5em;
+}
+
+.url {
+    padding: 0.5em;
+}
+
+.description {
+    padding: 0.5em;
+}
+
+.b1 {
+    margin: 1em;
+}
+
+.b2 {
+    margin: 1%;
+}

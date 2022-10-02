@@ -1,3 +1,43 @@
 .movieDetails{
     color: whitesmoke;
+    width: 100vw;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr, 0.8fr 0.5fr;
+    grid-template-areas: 
+        "poster"
+        "details"
+        "button";
+}
+
+.movieDetailedPoster{
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    height: 60em;
+    grid-area: poster;
+    justify-self: center;
+}
+
+.backButton{
+    grid-area: button;
+    margin: 2%;
+    padding: 2%;
+}
+
+.detailsSection {
+    grid-area: details;
+    width: 50%;
+    font-weight: 100;
+    justify-self: center;
+}
+
+.detailsTitle {
+    letter-spacing: 0.2em;
+}
+
+.genres {
+    font-weight: bold;
+    font-style: italic;
 }

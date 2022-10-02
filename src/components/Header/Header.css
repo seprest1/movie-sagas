@@ -1,0 +1,84 @@
+/* fonts */
+@font-face {
+    font-family: 'Beon';
+    src: url('../../../public/fonts/Beon-Medium.woff2') format('woff2'),
+        url('../../../public/fonts/Beon-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,200;0,300;0,400;0,500;0,700;1,100;1,300&family=Sarina&display=swap');
+
+  
+  .sign {
+      grid-area: sign;
+      margin: 1rem;
+      padding: 1rem;
+  }
+  
+  .marquee {
+      font-family: 'Beon';
+      margin: 0;
+      padding: 0;
+      font-size: 4rem;
+      letter-spacing: 0.2em;
+      text-align: center;
+      color: #f7c1c1;
+      animation: neonRed 0.2s ease-in-out infinite alternate;
+  }
+
+  .submarquee {
+    font-family: 'Sarina', cursive;
+    margin: 0;
+    padding: 0;
+    vertical-align: -2rem;
+    font-size: 2rem;
+    text-align: center;
+    color: #c1f7f5;
+    animation: neonBlue 0.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes neonRed {
+    from {
+      text-shadow:  
+      0 0 6px rgba(228, 202, 202, 0.92),
+      0 0 30px rgba(228, 202, 202, 0.34),
+      0 0 12px rgba(242, 30, 30, 0.52),
+      0 0 21px rgba(242, 30, 30, 0.92),
+      0 0 34px rgba(242, 30, 30, 0.78),
+      0 0 54px rgba(255, 0, 0, 0.92); 
+    }
+    to {
+      text-shadow: 
+      0 0 6px rgba(228, 202, 202, 0.98),
+      0 0 30px rgba(228, 202, 202, 0.42),
+      0 0 12px rgba(242, 30, 30, 0.58),
+      0 0 22px rgba(242, 30, 30, 0.84),
+      0 0 22px rgba(255, 87, 2, 0.84),
+      0 0 38px rgba(233, 5, 5, 0.88),
+      0 0 60px rgb(148, 27, 3); 
+    }
+  }
+  
+  @keyframes neonBlue {
+    from {
+      text-shadow:  
+      0 0 6px rgba(228, 202, 202, 0.92),
+      0 0 8px rgba(202, 228, 227, 0.34),
+      0 0 12px rgba(30, 238, 242, 0.52),
+      0 0 21px rgba(30, 168, 242, 0.92),
+      0 0 25px rgba(30, 175, 242, 0.78),
+      0 0 30px rgba(0, 204, 255, 0.92); 
+    }
+    to {
+      text-shadow: 
+      0 0 6px rgba(202, 208, 228, 0.98),
+      0 0 12px rgba(202, 216, 228, 0.42),
+      0 0 16px rgba(30, 210, 242, 0.58),
+      0 0 18px rgba(30, 125, 242, 0.84),
+      0 0 20px rgba(2, 179, 255, 0.84),
+      0 0 25px rgba(5, 233, 218, 0.88),
+      0 0 30px rgb(3, 148, 148); 
+    }
+  }

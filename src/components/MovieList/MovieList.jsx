@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import './MovieList.css'
 
+//MUI
+import IconButton from '@mui/material/IconButton';
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import Tooltip from '@mui/material/Tooltip';
+
 function MovieList() {
 
     const dispatch = useDispatch();
@@ -17,6 +22,10 @@ function MovieList() {
         console.log(movieId)
         history.push(`/details/${movieId}`);
       };
+    
+    const goToForm = () => {
+          history.push('/add_movie');
+      };
 
     return (
         <main>
@@ -24,12 +33,19 @@ function MovieList() {
                 {movies.map(movie => {
                     return (
                         <div key={movie.id} className="movieCard" onClick={() => goToDetails(movie.id)}>
-                            <h3 className="movieTitle">{movie.title}</h3>
                             <img src={movie.poster} alt={movie.title} className="moviePoster"/>
+                            <h3 className="movieTitle">{movie.title.toUpperCase()}</h3>
                         </div>
                     );
                 })}
             </section>
+            <footer className="footer">
+                <Tooltip title="+ New Film">
+                    <IconButton onClick={goToForm} color="secondary">
+                        <AddCircleRoundedIcon sx={{ fontSize: 80 }}/>
+                    </IconButton>
+                </Tooltip>
+            </footer>
         </main>
 
     );
