@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
+//MUI
+import { Button } from "@material-ui/core";
+
 import Select from 'react-select'
 
 function AddMovie(){
@@ -79,8 +82,8 @@ function AddMovie(){
                     />
             </div>
             <div className="buttons">
-                <button onClick={goBackHome}>Cancel</button>
-                <button>Save</button>
+                <Button onClick={goBackHome} variant="outlined">Cancel</Button>
+                <Button variant="outlined">Save</Button>
             </div>
         </form>
           

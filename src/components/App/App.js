@@ -14,13 +14,13 @@ function App() {
       <Router> 
           <Header />
           <Route exact path="/">
-            <MovieList className="movies"/>
+            <MovieList className="appBody"/>
           </Route>
           <Route exact path="/details/:id">
-            <Details/>
+            <Details className="appBody"/>
           </Route>
           <Route exact path="/add_movie">
-            <AddMovie/>
+            <AddMovie className="appBody"/>
           </Route>
       </Router>
       </div>

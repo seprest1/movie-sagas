@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect} from 'react'
 import './Details.css'
 
+//MUI
+import { Button } from '@material-ui/core'
 
 function Details(){
     const params = useParams();
@@ -39,7 +41,7 @@ function Details(){
             <h2>{movie.title}</h2>
             <p>{movie.description}</p>
             {movie.genre && <p> Genres: {movie.genre.join(', ')}</p>}
-            <button onClick={goBack}>Back</button>
+            <Button onClick={goBack} variant="outlined">Back</Button>
         </div>
     )
 }

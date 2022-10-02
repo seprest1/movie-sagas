@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import './MovieList.css'
 
+//MUI
+import { Button } from '@material-ui/core';
+
 function MovieList() {
 
     const dispatch = useDispatch();
@@ -17,6 +20,10 @@ function MovieList() {
         console.log(movieId)
         history.push(`/details/${movieId}`);
       };
+    
+    const goToForm = () => {
+          history.push('/add_movie');
+      };
 
     return (
         <main>
@@ -24,12 +31,15 @@ function MovieList() {
                 {movies.map(movie => {
                     return (
                         <div key={movie.id} className="movieCard" onClick={() => goToDetails(movie.id)}>
-                            <h3 className="movieTitle">{movie.title}</h3>
                             <img src={movie.poster} alt={movie.title} className="moviePoster"/>
+                            <h3 className="movieTitle">{movie.title.toUpperCase()}</h3>
                         </div>
                     );
                 })}
             </section>
+            <nav>
+                <Button onClick={goToForm} variant="outlined">Add Movie</Button>
+            </nav>
         </main>
 
     );

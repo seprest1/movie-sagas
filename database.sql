@@ -47,7 +47,7 @@ VALUES
 'Savvy New York City receptionist Tess McGill (Melanie Griffith) gives her conniving boss, Katharine Parker (Sigourney Weaver), an excellent business tip, but Katharine simply steals the idea without giving due credit to her secretary. After Katharine winds up in the hospital with an injured leg, Tess decides to exact revenge. Pretending to be her boss, Tess initiates a major deal with an investment broker (Harrison Ford) -- but things turn ugly after Katharine finds out what Tess has been up to.'),
 
 ('Solaris', 
-'https://assets.fontsinuse.com/static/use-media-items/160/159962/full-2186x3000/6242b26b/solaris-vintage-movie-poster-original-polish-a1-23x33-5685.jpeg', 
+'https://cdn.shopify.com/s/files/1/1416/8662/products/solaris_1972_italian_pbusta_original_film_art_5000x.jpg?v=1560654449', 
 'Based on the classic science fiction novel by Stanislaw Lem, "Solaris" centers on a psychologist (George Clooney) sent to investigate unexplained behavior of key scientists on a space station orbiting the planet Solaris. Once aboard he, too, falls victim to this unique world''s mysteries -- as well as to an erotic obsession with someone he thought he had left behind.'),
 
 ('Housu', 

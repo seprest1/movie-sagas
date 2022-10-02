@@ -5,16 +5,36 @@
     justify-content: center;
 }
 
+.movieCard {
+    width: 30%;
+    height: 40rem;
+    background-color: rgb(33, 32, 32, 0.8);
+    border-radius: 1em;
+}
+
 .moviePoster {
     width: 100%;
-    height: 80%;
+    height: 90%;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+.moviePoster:hover {
+    opacity: 0.7;
 }
 
 .movieTitle {
     color: whitesmoke;
+    margin: 3%;
+    padding: 0;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    font-size: larger;
+    font-style: italic;
 }
 
-.movieCard {
-    width: 30%;
-    height: 20%;
+.movieTitle:hover{
+    opacity: 0.9;
 }
+
+
