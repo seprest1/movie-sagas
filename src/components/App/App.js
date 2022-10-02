@@ -5,12 +5,14 @@ import './App.css';
 import MovieList from '../MovieList/MovieList'
 import Details from '../Details/Details';
 import AddMovie from '../AddMovie/AddMovie';
+import Header from '../Header/Header'
 
 function App() {
   return (
     <div className="app">
       <div className ="wrapper">
-      <Router>        
+      <Router> 
+          <Header />
           <Route exact path="/">
             <MovieList className="movies"/>
           </Route>

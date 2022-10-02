@@ -3,8 +3,4 @@ body {
   padding: 0;
   height: 100vh;
   width: 100%;
-  background-image: url("https://www.dropbox.com/s/2ct0i6kc61vp0bh/wall.jpg?raw=1");
-  background-size: cover;
-  background-repeat: repeat;
-  background-color: #141414;
 }

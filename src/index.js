@@ -14,11 +14,12 @@ import axios from 'axios';
 //////////// saga functions ////////////
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
-    yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails)
+    yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails);
+    yield takeEvery('FETCH_GENRES', fetchGenres);
+    yield takeEvery('ADD_MOVIE', addMovie);
 };
 
 function* fetchAllMovies() {
-    // get all movies from the DB
     try {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
@@ -43,6 +44,39 @@ function* fetchMovieDetails(action) {
     });
 };
 
+function* fetchGenres() {
+    try {
+        const genres = yield axios.get('/api/genre');
+
+        console.log('Genres:', genres.data);
+
+        yield put({ 
+            type: 'SET_GENRES', 
+            payload: genres.data 
+        });
+    } 
+    catch (error) {
+        console.log('GET genres failed', error);
+    };
+};
+
+function* addMovie(action){
+    try{
+        console.log(action.payload);
+        yield axios({
+            method: 'POST',
+            url: '/api/movie',
+            data: action.payload
+        })   
+        yield put({
+            type: 'FETCH_MOVIES'
+        })
+    }
+    catch(error){
+        console.log(error);
+      };
+};
+
 //////////// reducers ////////////
 const movies = (state = [], action) => {
     switch (action.type) {
@@ -51,7 +85,7 @@ const movies = (state = [], action) => {
         default:
             return state;
     }
-}
+};
 
 const genres = (state = [], action) => {
     switch (action.type) {
@@ -60,7 +94,7 @@ const genres = (state = [], action) => {
         default:
             return state;
     }
-}
+};
 
 const movieDetails = (state = {}, action) => {
     switch(action.type) {
@@ -71,7 +105,7 @@ const movieDetails = (state = {}, action) => {
         default:
             return state;
     }
-}
+};
 
 const sagaMiddleware = createSagaMiddleware();
 

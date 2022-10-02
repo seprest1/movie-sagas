@@ -2,6 +2,10 @@
   font-family: 'Roboto Mono', monospace;
   text-align: center;
   font-size: 1rem;
+  background-image: url("https://www.dropbox.com/s/2ct0i6kc61vp0bh/wall.jpg?raw=1");
+  background-size: contain;
+  background-repeat: repeat;
+  background-color: #141414;
   
 }
 
