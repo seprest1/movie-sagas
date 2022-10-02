@@ -4,15 +4,15 @@ import './App.css';
 //components
 import MovieList from '../MovieList/MovieList'
 import Details from '../Details/Details';
-import AddMovie from '../AddMovie/AddMovie';
+import MovieForm from '../MovieForm/MovieForm';
 import Header from '../Header/Header'
 
 function App() {
   return (
     <div className="app">
       <div className ="wrapper">
+      <Header />
       <Router> 
-          <Header />
           <Route exact path="/">
             <MovieList className="appBody"/>
           </Route>
@@ -20,7 +20,7 @@ function App() {
             <Details className="appBody"/>
           </Route>
           <Route exact path="/add_movie">
-            <AddMovie className="appBody"/>
+            <MovieForm className="appBody"/>
           </Route>
       </Router>
       </div>
