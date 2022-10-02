@@ -19,6 +19,7 @@ function* rootSaga() {
     yield takeEvery('ADD_MOVIE', addMovie);
 };
 
+//get movie titles & urls
 function* fetchAllMovies() {
     try {
         const movies = yield axios.get('/api/movie');
@@ -30,6 +31,7 @@ function* fetchAllMovies() {
     };
 };
 
+//get all movie details, including genres
 function* fetchMovieDetails(action) {
     const movieId = action.payload
     console.log(movieId);
@@ -44,6 +46,7 @@ function* fetchMovieDetails(action) {
     });
 };
 
+//get all genre types
 function* fetchGenres() {
     try {
         const genres = yield axios.get('/api/genre');
@@ -60,6 +63,7 @@ function* fetchGenres() {
     };
 };
 
+//add new movie to db
 function* addMovie(action){
     try{
         console.log(action.payload);
@@ -120,10 +124,6 @@ const storeInstance = createStore(
 );
 
 sagaMiddleware.run(rootSaga);
-
-
-
-
 
 ReactDOM.render(
     <React.StrictMode>

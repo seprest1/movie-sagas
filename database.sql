@@ -1,6 +1,6 @@
 -- CREATE DATABASE "saga_movies_weekend"
 
---DROP TABLE "movies"; 
+DROP TABLE "movies"; 
 
 CREATE TABLE "movies" (
   "id" SERIAL PRIMARY KEY,
@@ -9,7 +9,7 @@ CREATE TABLE "movies" (
   "description" TEXT NOT NULL
 );
 
---DROP TABLE "genres";
+DROP TABLE "genres";
 
 CREATE TABLE "genres" (
   "id" SERIAL PRIMARY KEY,
@@ -17,7 +17,7 @@ CREATE TABLE "genres" (
 );
 
 
---DROP TABLE "movies_genres";
+DROP TABLE "movies_genres";
 
 CREATE TABLE "movies_genres" (
   "id" SERIAL PRIMARY KEY,
@@ -123,7 +123,7 @@ VALUES
 	('Indie'),
 	('Mystery'),
 	('Noir'),
-	('Romantic'),      
+	('Romance'),      
 	('Science Fiction'),
 	('Silent'),
 	('Thriller'),
@@ -133,27 +133,20 @@ VALUES
 INSERT INTO "movies_genres" ("movie_id", "genre_id")
 VALUES 
 (1,4), (1,11), (1,19),				--Paris, Texas
-(2,1), (2,18), (2,20),				--Blade Runner
-(3,6), (3,22), (3,13),				--The Passion of Anna
-(4,7), (4,10), (4,19),				--Working Girl
-(5,8), (5,20), (5,22),				--Solaris
-(6,8), (6,13), (6,15),				--Housu
-(7,3), (7,8), (7,20),				--The Omega Man
-(8,5), (8,13), (8,22),				--L''Argent
-(9,1), (9,9), (9,19),				--Miracle Mile
-(10,1), (10,11), (10,13),			--The Hidden Fortress
-(11,7), (11,10), (11,19),			--The Graduate
-(12,8), (11,15), (11,20),			--Scanners
-(13,1), (13,15), 					--Dawn of The Dead 
-(14,8), (14,17), (14,22),			--The Wicker Man
-(15,15), (15,20), (15,22),			--The Thing
-(16,3), (16,8), (16,15), (16,20),	--Invasion of the Body Snatchers
-(17,15), (17,17), (17,22),			--The Sentinel
-(18,8), (18,15), (18,17);			--The Abominable Dr. Phibes;
-
-
-
-
-
-
-
+(2,8), (2,20), (2,22),				--Solaris
+(3,1), (3,18), (3,20),				--Blade Runner
+(4,6), (4,22), (4,13),				--The Passion of Anna
+(5,1), (5,11), (5,13),				--The Hidden Fortress
+(6,3), (6,8), (6,15), (6,20),		--Invasion of the Body Snatchers
+(7,15), (7,17), (7,22),				--The Sentinel
+(8,8), (8,15), (8,20),				--Scanners
+(9,5), (9,13), (9,22),				--L''Argent
+(10,15), (10,20), (10,22),			--The Thing
+(11,8), (11,17), (11,22),			--The Wicker Man
+(12,1), (12,9), (12,19),			--Miracle Mile
+(13,7), (13,10), (13,19),			--Working Girl
+(14,3), (14,8), (14,20),			--The Omega Man
+(15,7), (15,10), (15,19),			--The Graduate
+(16,1), (16,15), 					--Dawn of The Dead 
+(17,8), (17,15), (17,17),			--The Abominable Dr. Phibes;
+(18,8), (18,13), (18,15);			--Housu

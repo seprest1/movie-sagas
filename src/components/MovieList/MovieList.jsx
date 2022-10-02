@@ -18,11 +18,13 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
+    //when image is clicked, go to details page, send movie ID
     const goToDetails = (movieId) => {
         console.log(movieId)
         history.push(`/details/${movieId}`);
       };
-    
+
+    //when + button is clicked, go to movie form
     const goToForm = () => {
           history.push('/add_movie');
       };

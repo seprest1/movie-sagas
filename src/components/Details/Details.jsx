@@ -19,8 +19,8 @@ function Details(){
         return removeFlicker();     //remove flickering upon load
     }, [params.id]);    //runs function again when ID changes
 
-    const getDetails = () => {
-        const movieId = Number(params.id);
+    const getDetails = () => { 
+        const movieId = Number(params.id); //send ID of clicked movie to router
         dispatch({
             type: 'FETCH_MOVIE_DETAILS',
             payload: movieId
@@ -34,15 +34,15 @@ function Details(){
     };
 
     const goBack = () => {
-        history.push('/');
-    };
+        history.push('/');  
+    };  //go back home
 
     return (
         <div className="movieDetails">
             <img src={movie.poster} alt={movie.title} className="movieDetailedPoster"/>
             <div className="detailsSection">
                 <h2 className="detailsTitle">{movie.title}</h2>
-                <p>{movie.description}</p>
+                <p>{movie.description}</p>       {/* joins just the names of the genres into a string */}
                 {movie.genre && <p className="genres"> Genre: {movie.genre.join(', ')}</p>}
                 <div className="backButton">
                     <Tooltip title="Back">

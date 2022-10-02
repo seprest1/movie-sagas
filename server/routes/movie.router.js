@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+//gets movie data from db
 router.get('/', (req, res) => {
   const query = `SELECT * FROM movies ORDER BY id`;
   pool.query(query)

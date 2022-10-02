@@ -32,7 +32,8 @@ function MovieForm(){
             title: "",      
             description: "",
             genres: []});   
-                
+         
+    //send movie object to db
     const submitMovie = (e) => {
         e.preventDefault();
         console.log(genresToAdd);
