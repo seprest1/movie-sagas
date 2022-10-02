@@ -16,6 +16,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails);
     yield takeEvery('FETCH_GENRES', fetchGenres);
+    yield takeEvery('ADD_MOVIE', addMovie);
 };
 
 function* fetchAllMovies() {
@@ -59,8 +60,22 @@ function* fetchGenres() {
     };
 };
 
-
-
+function* addMovie(action){
+    try{
+        console.log(action.payload);
+        yield axios({
+            method: 'POST',
+            url: '/api/movie',
+            data: action.payload
+        })   
+        yield put({
+            type: 'FETCH_MOVIES'
+        })
+    }
+    catch(error){
+        console.log(error);
+      };
+};
 
 //////////// reducers ////////////
 const movies = (state = [], action) => {
@@ -70,7 +85,7 @@ const movies = (state = [], action) => {
         default:
             return state;
     }
-}
+};
 
 const genres = (state = [], action) => {
     switch (action.type) {
@@ -79,7 +94,7 @@ const genres = (state = [], action) => {
         default:
             return state;
     }
-}
+};
 
 const movieDetails = (state = {}, action) => {
     switch(action.type) {
@@ -90,7 +105,7 @@ const movieDetails = (state = {}, action) => {
         default:
             return state;
     }
-}
+};
 
 const sagaMiddleware = createSagaMiddleware();
 

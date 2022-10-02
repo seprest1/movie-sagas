@@ -16,35 +16,28 @@ function AddMovie(){
         history.push('/');
     };
 
+    const allGenres = useSelector(store => store.genres);
+    const [genresToAdd, setGenresToAdd] = useState([]);
+    /////movie object/////
     const [movie, setMovie] = useState({
-            title: "",      //movie object
-            poster: "",
+            title: "",      
             description: "",
             genres: []});   
                 
     const submitMovie = (e) => {
         e.preventDefault();
-        // dispatch({
-        //     type: 
-        //     payload: 
-        // });
-    };
-    
-    
-    
-    const allGenres = useSelector(store => store.genres);
-    const options = allGenres.map(genre => ({value: genre.name, label: genre.name }));
-    const [genresToAdd, setGenresToAdd] = useState([]);
-
-    //sets genres array for movie object    
-    const onChangeValue = (value) => {
-        setGenresToAdd(value.map(item => item.value));
-        setMovie({...movie, genres: genresToAdd});
         console.log(genresToAdd);
-        console.log(genresToAdd.length);
-    }
 
-    console.log(movie);
+        dispatch({
+            type: 'ADD_MOVIE',
+            payload: {...movie, genres: genresToAdd}
+        });
+        goBackHome();
+    };
+
+    //options for genre select
+    const options = allGenres.map(genre => ({value: genre.id, label: genre.name }));
+    
 
     return(
         <form onSubmit={submitMovie}>
@@ -81,8 +74,8 @@ function AddMovie(){
                     isSearchable={true}
                     backspaceRemovesValue={true}
                     isOptionDisabled={() => genresToAdd.length >= 3} //limits select to 3 genres
-                    onChange={onChangeValue} //update genre array with selected genre
-                    placeholder="Genre"     
+                    onChange={(value) => setGenresToAdd(value.map(item => item.value))} 
+                    placeholder="Genre"     //update genre array with selected genre
                     />
             </div>
             <div className="buttons">
