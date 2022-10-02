@@ -4,7 +4,9 @@ import { useHistory } from 'react-router-dom'
 import './MovieList.css'
 
 //MUI
-import { Button } from '@material-ui/core';
+import IconButton from '@mui/material/IconButton';
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import Tooltip from '@mui/material/Tooltip';
 
 function MovieList() {
 
@@ -37,9 +39,13 @@ function MovieList() {
                     );
                 })}
             </section>
-            <nav>
-                <Button onClick={goToForm} variant="outlined">Add Movie</Button>
-            </nav>
+            <footer className="footer">
+                <Tooltip title="+ New Film">
+                    <IconButton onClick={goToForm} color="secondary">
+                        <AddCircleRoundedIcon sx={{ fontSize: 80 }}/>
+                    </IconButton>
+                </Tooltip>
+            </footer>
         </main>
 
     );

@@ -4,7 +4,9 @@ import { useEffect} from 'react'
 import './Details.css'
 
 //MUI
-import { Button } from '@material-ui/core'
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import Tooltip from '@mui/material/Tooltip';
 
 function Details(){
     const params = useParams();
@@ -38,10 +40,18 @@ function Details(){
     return (
         <div className="movieDetails">
             <img src={movie.poster} alt={movie.title} className="movieDetailedPoster"/>
-            <h2>{movie.title}</h2>
-            <p>{movie.description}</p>
-            {movie.genre && <p> Genres: {movie.genre.join(', ')}</p>}
-            <Button onClick={goBack} variant="outlined">Back</Button>
+            <div className="detailsSection">
+                <h2 className="detailsTitle">{movie.title}</h2>
+                <p>{movie.description}</p>
+                {movie.genre && <p className="genres"> Genre: {movie.genre.join(', ')}</p>}
+                <div className="backButton">
+                    <Tooltip title="Back">
+                        <IconButton onClick={goBack} variant="outlined" color="secondary">
+                            <ArrowBackIosIcon sx={{ fontSize: 40 }}/>
+                        </IconButton>
+                    </Tooltip>
+                </div>
+            </div>
         </div>
     )
 }
